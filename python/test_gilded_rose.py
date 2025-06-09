@@ -172,7 +172,32 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.update_quality() #q must go down to 0
         self.assertEqual(0, items[0].quality)
 
+    def test_quality_of_conjured_items_1(self):
+        """
+        Test if 'Conjured' item quality reduces by 2 at each time step when sell_in > 0
+        """
+        items = [Item("Conjured", 10, 50)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality() #quality must go down by 2
+        self.assertEqual(48, items[0].quality)
 
+    def test_quality_of_conjured_items_2(self):
+        """
+        Test if 'Conjured' item quality reduces by 2 at each time step when sell_in = 0
+        """
+        items = [Item("Conjured", 0, 50)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality() #q must go down by 4
+        self.assertEqual(46, items[0].quality)
+
+    def test_quality_of_conjured_items_3(self):
+        """
+        Test if 'Conjured' item quality reduces by 2 at each time step when sell_in < 0
+        """
+        items = [Item("Conjured", -1, 50)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality() #q must go down by 4
+        self.assertEqual(46, items[0].quality)
 
 if __name__ == '__main__':
     unittest.main()

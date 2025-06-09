@@ -22,6 +22,13 @@ class GildedRose(object):
                     elif (item.sell_in < 11): #10 days close to the concert, the passes go up by 2
                         item.quality = max(0, item.quality + 2)    
                     item.sell_in -= 1
+                case "Conjured": 
+                    item.quality = min(50, item.quality)
+                    if (item.sell_in > 0): 
+                        item.quality = max(0, item.quality - 2)
+                    else:
+                        item.quality = max(0, item.quality - 4)
+                    item.sell_in -= 1
                 case _: #all other items
                     item.quality = min(50, item.quality)
                     if (item.sell_in > 0): 

@@ -54,7 +54,7 @@ class GildedRoseTest(unittest.TestCase):
         """
         Test if the quality of an item never goes above 50 (except Sulfuras)
         """
-        items = [Item("foo", 1, 55)]
+        items = [Item("foo", 1, 55)] #item quality could be initiated above 50
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality() #must reduce by 1 but cant be more than 50
         self.assertEqual(49, items[0].quality)
@@ -65,6 +65,16 @@ class GildedRoseTest(unittest.TestCase):
         Test 'Aged Brie' as its quality increases every timestep
         """
         items = [Item("Aged Brie", 5, 50)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality() #must increase by 1 but not beyond 50
+        self.assertEqual(50, items[0].quality)
+    
+    def test_quality_never_goes_above_50_3(self):
+        """
+        Test if the quality of an item never goes above 50 (except Sulfuras)
+        Test 'Aged Brie' as its quality increases every timestep
+        """
+        items = [Item("Aged Brie", 5, 55)] #item quality could be initiate above 50
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality() #must increase by 1 but not beyond 50
         self.assertEqual(50, items[0].quality)
@@ -121,42 +131,41 @@ class GildedRoseTest(unittest.TestCase):
         """
         Test if ‘Backstage passes’ increases in quality by 2 when sellin date is less than eq 10 days
         """
-        items = [Item("Backstage passes to a TAFKAL80ETC concert", 10, 50)]
+        items = [Item("Backstage passes to a TAFKAL80ETC concert", 10, 45)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality() #q must increase by 2
-        self.assertEqual(52, items[0].quality)
+        self.assertEqual(47, items[0].quality)
 
     def test_quality_of_backstage_passes_less_than_10_days_2(self):
         """
         Test if ‘Backstage passes’ increases in quality by 2 when sellin date is less than eq 10 days
         """
-        items = [Item("Backstage passes to a TAFKAL80ETC concert", 9, 50)]
+        items = [Item("Backstage passes to a TAFKAL80ETC concert", 9, 45)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality() #q must increase by 2
-        self.assertEqual(52, items[0].quality)
+        self.assertEqual(47, items[0].quality)
     
     def test_quality_of_backstage_passes_less_than_5_days_1(self):
         """
         Test if ‘Backstage passes’ increases in quality by 3 when sellin date is less than eq 5 days
         """
-        items = [Item("Backstage passes to a TAFKAL80ETC concert", 5, 50)]
+        items = [Item("Backstage passes to a TAFKAL80ETC concert", 5, 45)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality() #q must increase by 3
-        self.assertEqual(53, items[0].quality)
+        self.assertEqual(48, items[0].quality)
 
     def test_quality_of_backstage_passes_less_than_5_days_2(self):
         """
         Test if ‘Backstage passes’ increases in quality by 3 when sellin date is less than eq 5 days
         """
-        items = [Item("Backstage passes to a TAFKAL80ETC concert", 4, 50)]
+        items = [Item("Backstage passes to a TAFKAL80ETC concert", 4, 45)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality() #q must increase by 3
-        self.assertEqual(53, items[0].quality)
+        self.assertEqual(48, items[0].quality)
 
-    def test_quality_of_backstage_passes_after_concert_1(self):
+    def test_quality_of_backstage_passes_less_than_5_days_6(self):
         """
         Test if ‘Backstage passes’ quality reduces to 0 if sellin date is 0.
-
         """
         items = [Item("Backstage passes to a TAFKAL80ETC concert", 0, 50)]
         gilded_rose = GildedRose(items)

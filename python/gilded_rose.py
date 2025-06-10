@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+
 class GildedRose(object):
 
     def __init__(self, items):
@@ -7,7 +8,7 @@ class GildedRose(object):
 
     def update_quality(self):
         for item in self.items:
-            
+
             match item.name:
                 case "Sulfuras, Hand of Ragnaros":
                     item.quality = 80
@@ -15,28 +16,32 @@ class GildedRose(object):
                     item.quality = min(50, item.quality + 1)
                     item.sell_in -= 1
                 case "Backstage passes to a TAFKAL80ETC concert":
-                    if (item.sell_in <= 0): #after the concert, the passes lose value
+                    if item.sell_in <= 0:  # after the concert, the passes lose value
                         item.quality = 0
-                    elif (item.sell_in < 6): #close to the concert, the passes go up by 3
+                    elif (
+                        item.sell_in < 6
+                    ):  # close to the concert, the passes go up by 3
                         item.quality = max(0, item.quality + 3)
-                    elif (item.sell_in < 11): #10 days close to the concert, the passes go up by 2
-                        item.quality = max(0, item.quality + 2)    
+                    elif (
+                        item.sell_in < 11
+                    ):  # 10 days close to the concert, the passes go up by 2
+                        item.quality = max(0, item.quality + 2)
                     item.sell_in -= 1
-                case "Conjured": 
+                case "Conjured":
                     item.quality = min(50, item.quality)
-                    if (item.sell_in > 0): 
+                    if item.sell_in > 0:
                         item.quality = max(0, item.quality - 2)
                     else:
                         item.quality = max(0, item.quality - 4)
                     item.sell_in -= 1
-                case _: #all other items
+                case _:  # all other items
                     item.quality = min(50, item.quality)
-                    if (item.sell_in > 0): 
+                    if item.sell_in > 0:
                         item.quality = max(0, item.quality - 1)
                     else:
                         item.quality = max(0, item.quality - 2)
                     item.sell_in -= 1
-            
+
             """
             if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
                 if item.quality > 0:
@@ -66,6 +71,7 @@ class GildedRose(object):
                     if item.quality < 50:
                         item.quality = item.quality + 1
             """
+
 
 class Item:
     def __init__(self, name, sell_in, quality):
